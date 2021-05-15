@@ -11,9 +11,15 @@ function doPost(e) {
   var order_status       = myData.status;
   var created_via        = myData.created_via;
   var order_total        = myData.total;
-  var billing_first_name = myData.billing.first_name;
-  var billing_last_name  = myData.billing.last_name;
-  var billing_name       = billing_last_name + " " + billing_first_name;
+
+  try {
+    var billing_first_name = myData.billing.first_name;
+    var billing_last_name  = myData.billing.last_name;
+    var billing_name       = billing_last_name + " " + billing_first_name;
+  } catch (error) {
+    var billing_name       = "Rosszul megadott/hiányzó név";
+  }
+
 
   try {
     var billing_email      = myData.billing.email;
