@@ -10,17 +10,30 @@ function doPost(e) {
   var order_created      = myData.date_created;
   var order_status       = myData.status;
   var created_via        = myData.created_via;
-  var product_name       = myData.line_items[0].name;
-  var product_qty        = myData.line_items[0].quantity;
-  var product_total      = myData.line_items[0].total;
   var order_total        = myData.total;
-  var billing_email      = myData.billing.email;
   var billing_first_name = myData.billing.first_name;
   var billing_last_name  = myData.billing.last_name;
   var billing_name       = billing_last_name + " " + billing_first_name;
-  var payment_method     = myData.payment_method_title;
-  var shipping_method    = myData.shipping_lines[0].method_title;
-  var shipping_total     = myData.shipping_lines[0].total;
+
+  try {
+    var billing_email      = myData.billing.email;
+  } catch (error) {
+    var billing_email      = "Nincs e-mail megadva";
+  }
+
+  try {
+    var payment_method     = myData.payment_method_title;
+  } catch (error) {
+    var payment_method     = "Nincs fizetési mód megadva";
+  }
+
+  try {
+    var shipping_method    = myData.shipping_lines[0].method_title;
+    var shipping_total     = myData.shipping_lines[0].total;
+  } catch (error) {
+    var shipping_method    = "Nincs szállítási mód megadva";
+    var shipping_total     = "Nincs szállítási mód megadva";
+  }
   
   var timestamp = new Date();
   var sheet = SpreadsheetApp.getActiveSheet();
